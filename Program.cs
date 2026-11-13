@@ -1,10 +1,13 @@
-﻿namespace GymWorkoutManager
+﻿using GymWorkoutManager.Classes;
+using Spectre.Console;
+
+namespace GymWorkoutManager
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            new MainMenu().ShowMainMenu();
         }
     }
 }
