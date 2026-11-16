@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace GymWorkoutManager.Classes
+{
+    public class WorkSet
+    {
+        public int Weight { get; set; }
+
+        public int RepCount { get; set; }
+    }
+}
