@@ -9,6 +9,7 @@ namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
+   
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
 
