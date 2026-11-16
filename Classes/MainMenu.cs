@@ -4,42 +4,27 @@ using System.Security.Cryptography;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
+
 namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
+        public SpectreFunktion spectreFunktion = new SpectreFunktion();
+        public SpectreLogos spectreLogos = new SpectreLogos();
+
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // 1. HUVUDMENY
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         public void ShowMainMenu()
         {
-            ShowStartLogo();
+            Console.WriteLine(SpectreLogos.LogoStart());
             Console.WriteLine("Press ENTER to start");
             Console.ReadLine();
             Console.Clear();
 
-            // laddningsbar innan huvudmenyn visas
-            AnsiConsole.Progress()
-                .Columns(
-                    new TaskDescriptionColumn(),
-                    new ProgressBarColumn
-                    {
-                        CompletedStyle = new Style(Color.Blue),
-                        RemainingStyle = new Style(Color.Grey)
-                    },
-                    new PercentageColumn(),
-                    new SpinnerColumn())
-                .Start(ctx =>
-                {
-                    var task = ctx.AddTask("Loading RepRange...", maxValue: 100);
 
-                    while (!ctx.IsFinished)
-                    {
-                        task.Increment(2);      // hur mycket baren fylls per steg
-                        Thread.Sleep(50);       // paus i millisekunder
-                    }
-                });
+            spectreFunktion.ShowLoadingBar();
 
             Console.Clear();
 
@@ -47,7 +32,7 @@ namespace GymWorkoutManager.Classes
 
             while (menuKeepRunning)
             {
-                ShowMenuLogo();
+                Console.WriteLine(SpectreLogos.MenuLogo());
 
                 string choice = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -88,7 +73,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowNewWorkOutLogo();
+                Console.WriteLine(SpectreLogos.NewWorkOutLogo());
 
                 string choiceNewWork = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -131,7 +116,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingMenuLogo());
 
                 string choiceMuscleGroup = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -211,7 +196,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingChestMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingChestMenuLogo);
 
                 string choiceMuscleGroupChest = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -220,31 +205,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupChest)
                 {
-                    case "Bench Press":
-                        RegisterStrengthWorkout("Bench Press");
-                        CleanConsole();
-                        break;
-                    case "Pec Deck":
-                        RegisterStrengthWorkout("Pec Deck");
-                        CleanConsole();
-                        break;
-                    case "Dumbbell Press":
-                        RegisterStrengthWorkout("Dumbbell Press");
-                        CleanConsole();
-                        break;
-                    case "Chest Press":
-                        RegisterStrengthWorkout("Chest Press");
-                        CleanConsole();
-                        break;
-                    case "Push-Ups":
-                        RegisterStrengthWorkout("Push-Ups");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupChest); break;
                 }
             }
         }
@@ -255,7 +221,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingBackMusclesMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingBackMusclesMenuLogo);
 
                 string choiceMuscleGroupBackMuscles = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -264,31 +230,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupBackMuscles)
                 {
-                    case "Lat Pulldown":
-                        RegisterStrengthWorkout("Lat Pulldown");
-                        CleanConsole();
-                        break;
-                    case "Pull-Up":
-                        RegisterStrengthWorkout("Pull-Up");
-                        CleanConsole();
-                        break;
-                    case "Barbell Row":
-                        RegisterStrengthWorkout("Barbell Row");
-                        CleanConsole();
-                        break;
-                    case "Deadlift":
-                        RegisterStrengthWorkout("Deadlift");
-                        CleanConsole();
-                        break;
-                    case "Cable Row":
-                        RegisterStrengthWorkout("Cable Row");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupBackMuscles); break;
                 }
             }
         }
@@ -299,7 +246,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingShouldersMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingShouldersMenuLogo);
 
                 string choiceMuscleGroupShoulders = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -308,31 +255,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupShoulders)
                 {
-                    case "Lateral raise":
-                        RegisterStrengthWorkout("Lateral raise");
-                        CleanConsole();
-                        break;
-                    case "Shoulder press":
-                        RegisterStrengthWorkout("Shoulder press");
-                        CleanConsole();
-                        break;
-                    case "Upright Row":
-                        RegisterStrengthWorkout("Upright Row");
-                        CleanConsole();
-                        break;
-                    case "Face Pull":
-                        RegisterStrengthWorkout("Face Pull");
-                        CleanConsole();
-                        break;
-                    case "Military press":
-                        RegisterStrengthWorkout("Military press");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupShoulders); break;
                 }
             }
         }
@@ -343,7 +271,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingBicepsMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingBicepsMenuLogo);
 
                 string choiceMuscleGroupBiceps = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -352,31 +280,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupBiceps)
                 {
-                    case "Dumbbell curl":
-                        RegisterStrengthWorkout("Dumbbell curl");
-                        CleanConsole();
-                        break;
-                    case "Cable curl":
-                        RegisterStrengthWorkout("Cable curl");
-                        CleanConsole();
-                        break;
-                    case "Barbell curl":
-                        RegisterStrengthWorkout("Barbell curl");
-                        CleanConsole();
-                        break;
-                    case "Preacher curl":
-                        RegisterStrengthWorkout("Preacher curl");
-                        CleanConsole();
-                        break;
-                    case "Spider curl":
-                        RegisterStrengthWorkout("Spider curl");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupBiceps); break;
                 }
             }
         }
@@ -387,7 +296,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingTricepsMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingTricepsMenuLogo);
 
                 string choiceMuscleGroupTriceps = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -396,31 +305,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupTriceps)
                 {
-                    case "Tricep pushdown":
-                        RegisterStrengthWorkout("Tricep pushdown");
-                        CleanConsole();
-                        break;
-                    case "Tricep extension":
-                        RegisterStrengthWorkout("Tricep extension");
-                        CleanConsole();
-                        break;
-                    case "Overhead press":
-                        RegisterStrengthWorkout("Overhead press");
-                        CleanConsole();
-                        break;
-                    case "Skull crusher":
-                        RegisterStrengthWorkout("Skull crusher");
-                        CleanConsole();
-                        break;
-                    case "Dips":
-                        RegisterStrengthWorkout("Dips");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupTriceps); break;
                 }
             }
         }
@@ -431,7 +321,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingAbsMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingAbsMenuLogo);
 
                 string choiceMuscleGroupAbs = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -440,31 +330,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupAbs)
                 {
-                    case "Crunch":
-                        RegisterStrengthWorkout("Crunch");
-                        CleanConsole();
-                        break;
-                    case "Cable crunch":
-                        RegisterStrengthWorkout("Cable crunch");
-                        CleanConsole();
-                        break;
-                    case "Leg raise":
-                        RegisterStrengthWorkout("Leg raise");
-                        CleanConsole();
-                        break;
-                    case "Sit ups":
-                        RegisterStrengthWorkout("Sit ups");
-                        CleanConsole();
-                        break;
-                    case "Plank":
-                        RegisterStrengthWorkout("Plank");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupAbs); break;
                 }
             }
         }
@@ -475,7 +346,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowStrengthTrainingLegsMenuLogo();
+                Console.WriteLine(SpectreLogos.StrengthTrainingLegsMenuLogo);
 
                 string choiceMuscleGroupLegs = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -484,31 +355,13 @@ namespace GymWorkoutManager.Classes
 
                 switch (choiceMuscleGroupLegs)
                 {
-                    case "Leg press":
-                        RegisterStrengthWorkout("Leg press");
-                        CleanConsole();
-                        break;
-                    case "Squats":
-                        RegisterStrengthWorkout("Squats");
-                        CleanConsole();
-                        break;
-                    case "Leg extension":
-                        RegisterStrengthWorkout("Leg extension");
-                        CleanConsole();
-                        break;
-                    case "Leg curl":
-                        RegisterStrengthWorkout("Leg curl");
-                        CleanConsole();
-                        break;
-                    case "RDL":
-                        RegisterStrengthWorkout("RDL");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                        ;
+                    default: RegisterStrengthWorkout(choiceMuscleGroupLegs); break;
                 }
             }
         }
@@ -547,7 +400,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                ShowCardioMenuLogo();
+                Console.WriteLine(SpectreLogos.CardioMenuLogo);
 
                 string cardioExercise = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -556,27 +409,12 @@ namespace GymWorkoutManager.Classes
 
                 switch (cardioExercise)
                 {
-                    case "Running":
-                        RegisterCardioWorkout("Running");
-                        CleanConsole();
-                        break;
-                    case "Cycling":
-                        RegisterCardioWorkout("Cycling");
-                        CleanConsole();
-                        break;
-                    case "Rowing":
-                        RegisterCardioWorkout("Rowing");
-                        CleanConsole();
-                        break;
-                    case "Swimming":
-                        RegisterCardioWorkout("Swimming");
-                        CleanConsole();
-                        break;
                     case "Back":
                         Console.Clear();
                         return false;
                     case "Exit":
                         return true;
+                    default: RegisterCardioWorkout(cardioExercise); break;
                 }
             }
         }
@@ -618,92 +456,6 @@ namespace GymWorkoutManager.Classes
             Console.Clear();
         }
 
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // 6. LOGOTYPER
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        // startlogon
-        private void ShowStartLogo()
-        {
-            Console.WriteLine("\u001b[0;34m▄▄\u001b[0;37m \u001b[0;34m▄▄\u001b[0;37m \u001b[0;34m▄▄\u001b[0;37m  \u001b[0;34m▄▄▄\u001b[0;37m  \u001b[0;34m▓█\u001b[0;37m     \u001b[0;34m▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄\u001b[0;37m  \u001b[0;34m▄▄▄▄\u001b[0;37m \u001b[0;34m▄▄\u001b[0;37m   \u001b[0;34m▄▄▄\u001b[0;37m       \u001b[0;34m▓█▄\u001b[0;37m    \u001b[0;34m▄▄▄\u001b[0;37m       \u001b[0;34m▄▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄\u001b[0;37m  \u001b[0;34m▄▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄▄\u001b[0;37m \u001b[0;34m▄▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄▄\u001b[0;37m  \u001b[0;34m▄▄▄\u001b[0;37m \u001b[0m\r\n\u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m    \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m      \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;34m▄▄\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m      \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0m\r\n\u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m    \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀▀\u001b[0;37m      \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m      \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀▀\u001b[0m\r\n\u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m      \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m      \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m    \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m    \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;34m▀▀▀\u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0m\r\n\u001b[0;37m \u001b[0;34m▀▀▀\u001b[0;37m \u001b[0;34m▀▀▀\u001b[0;37m  \u001b[0;34m▀▀▀▀\u001b[0;37m \u001b[0;94m▀\u001b[0;34m▀▀▀▀\u001b[0;37m  \u001b[0;34m▀▀▀\u001b[0;37m   \u001b[0;34m▀▀▀\u001b[0;37m  \u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m  \u001b[0;34m▀▀▀▀\u001b[0;37m      \u001b[0;94m▀\u001b[0;34m▀▀▀\u001b[0;37m   \u001b[0;34m▀▀▀\u001b[0;37m       \u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m     \u001b[0;34m▀▀▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀\u001b[0;37m  \u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m     \u001b[0;34m▀▀▀▀\u001b[0;37m \u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m  \u001b[0;34m▀▀▀▀\u001b[0m\r\n\u001b[0;37m                                                                                  \u001b[0;34m▀▀\u001b[0;37m                       \u001b[0;34m▀▀▀▀\u001b[0;37m      \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // huvudmenyn
-        private void ShowMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;34m▄▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄\u001b[0;37m  \u001b[0;34m▄▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄▄\u001b[0;37m \u001b[0;34m▄▄▄▄\u001b[0;37m   \u001b[0;34m▄▄▄▄\u001b[0;37m  \u001b[0;34m▄▄▄\u001b[0;37m \u001b[0m\r\n\u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0m\r\n\u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀▀\u001b[0m\r\n\u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m    \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m    \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m \u001b[0;34m▀▀▀\u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓\u001b[0;34m▓\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0m\r\n\u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m     \u001b[0;34m▀▀▀▀\u001b[0;37m \u001b[0;94;44m▒\u001b[0;34m█▀▀\u001b[0;37m  \u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m     \u001b[0;34m▀▀▀▀\u001b[0;37m \u001b[0;94m▀\u001b[0;34m▀\u001b[0;37m \u001b[0;34m▀▀\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;37m \u001b[0;94;44m▓░\u001b[0;37m  \u001b[0;34m▀▀▀▀\u001b[0m\r\n\u001b[0;37m            \u001b[0;34m▀▀\u001b[0;37m                       \u001b[0;34m▀▀▀▀\u001b[0;37m      \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // new workout
-        private void ShowNewWorkOutLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m     \u001b[0;94;44m███\u001b[0;37m      \u001b[0;94;44m███\u001b[0;37m     \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m█████▓▓██\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;94m█▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94m▄▄▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m      \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94m▄▄▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;94m▄▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m    \u001b[0;94;44m█▓▓\u001b[0;37m   \u001b[0m\r\n\u001b[0;94;44m▒▒▓\u001b[0;94m▀\u001b[0;94;44m██▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒░▒\u001b[0;37m \u001b[0;94;44m▓▓▒\u001b[0;37m      \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒░▒\u001b[0;37m \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▒▓▓██▓\u001b[0;94m█\u001b[0;37m  \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m    \u001b[0;94;44m▒▒▒\u001b[0;37m   \u001b[0m\r\n\u001b[0;94;44m░░▒\u001b[0;37m  \u001b[0;94m▀\u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;94;44m░\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m      \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░\u001b[0;34m█\u001b[0;94;44m░\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m  \u001b[0;94m▀\u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m    \u001b[0;94;44m░░ \u001b[0;37m   \u001b[0m\r\n\u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░  \u001b[0;34m█▀\u001b[0;94;44m     \u001b[0;37m      \u001b[0;94;44m░░  \u001b[0;34m█▀\u001b[0;94;44m     \u001b[0;37m \u001b[0;94;44m░░       \u001b[0;37m \u001b[0;94;44m░░░\u001b[0;37m   \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░       \u001b[0;37m \u001b[0;94;44m░░       \u001b[0;37m    \u001b[0;94;44m░  \u001b[0;37m   \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // strength training
-        private void ShowStrengthTrainingMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m█████▓▓██\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m   \u001b[0;94;44m█████▓▓██\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m      \u001b[0;94;44m█████▓▓██\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m  \u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m          \u001b[0;94;44m█▓▓\u001b[0;37m    \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;94m█▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m          \u001b[0;94;44m█▓▓\u001b[0;37m    \u001b[0;94;44m▓▓█\u001b[0;94m▄▄▄\u001b[0;94;44m█▓▓\u001b[0;37m         \u001b[0;94;44m█▓▓\u001b[0;37m    \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;94m█▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;94m█▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m    \u001b[0;94;44m▒▒▒\u001b[0;37m    \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▒▓\u001b[0;94m▀\u001b[0;94;44m██▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m \u001b[0;94;44m▒█▓▓▒\u001b[0;37m    \u001b[0;94;44m▒▒▒\u001b[0;37m    \u001b[0;94;44m▒▒▓▓██▓▓▒\u001b[0;37m         \u001b[0;94;44m▒▒▒\u001b[0;37m    \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;94m▀\u001b[0;94;44m██▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;94m▀\u001b[0;94;44m██▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m \u001b[0;94;44m▒█▓▓▒\u001b[0m\r\n\u001b[0;37m      \u001b[0;94;44m░░▒\u001b[0;37m    \u001b[0;94;44m░░ \u001b[0;37m    \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m  \u001b[0;94m▀\u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m    \u001b[0;94;44m░░ \u001b[0;37m    \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m         \u001b[0;94;44m░░ \u001b[0;37m    \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m  \u001b[0;94m▀\u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m  \u001b[0;94m▀\u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0;37m    \u001b[0;94;44m░  \u001b[0;37m    \u001b[0;94;44m░░░\u001b[0;37m   \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░      \u001b[0;34m█\u001b[0;37m    \u001b[0;94;44m░  \u001b[0;37m    \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m         \u001b[0;94;44m░  \u001b[0;37m    \u001b[0;94;44m░░░\u001b[0;37m   \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░ \u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░      \u001b[0;34m█\u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // bröst
-        private void ShowStrengthTrainingChestMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m█████▓▓██\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;94m▄▄▄\u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m          \u001b[0;94;44m█▓▓\u001b[0;37m   \u001b[0m\r\n\u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▒▓▓██▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m    \u001b[0;94;44m▒▒▒\u001b[0;37m   \u001b[0m\r\n\u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m           \u001b[0;94;44m░░▒\u001b[0;37m    \u001b[0;94;44m░░ \u001b[0;37m   \u001b[0m\r\n\u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0;37m    \u001b[0;94;44m░  \u001b[0;37m   \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // rygg
-        private void ShowStrengthTrainingBackMusclesMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m \u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m      \u001b[0;94;44m███\u001b[0;94m██▄██\u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m     \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m█████████\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;94m▄▄\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m      \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94;44m▒▓▒\u001b[0;37m \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m       \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▒▓▓██▓\u001b[0;94m█\u001b[0;37m       \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m░▒░\u001b[0;37m \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0m\r\n\u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m  \u001b[0;94m▀\u001b[0;94;44m░░▒\u001b[0;37m      \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;34m▀▀▀\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m       \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m           \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░      \u001b[0;34m▀\u001b[0;37m \u001b[0;94;44m░░ \u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m      \u001b[0;94;44m░░ \u001b[0;37m     \u001b[0;94;44m   \u001b[0;37m \u001b[0;94;44m░░       \u001b[0;37m \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // axlar
-        private void ShowStrengthTrainingShouldersMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m   \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m     \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m█████████\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m       \u001b[0;94;44m▓▓█\u001b[0;94m▄▄▄\u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓▓██▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0m\r\n\u001b[0;37m      \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m       \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░       \u001b[0;37m \u001b[0;94;44m░░       \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░      \u001b[0;34m▀\u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░░\u001b[0;37m   \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // biceps
-        private void ShowStrengthTrainingBicepsMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m█████████\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▒▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0m\r\n\u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m             \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░      \u001b[0;34m▀\u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░░\u001b[0;37m       \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // triceps
-        private void ShowStrengthTrainingTricepsMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m█████▓▓██\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m█████████\u001b[0m\r\n\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m    \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;37m   \u001b[0;94;44m▒▒▒\u001b[0;37m    \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▒▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0m\r\n\u001b[0;37m   \u001b[0;94;44m░░ \u001b[0;37m    \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m░░▒\u001b[0;37m             \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m    \u001b[0;94;44m░░░\u001b[0;37m   \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░░\u001b[0;37m       \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // mage
-        private void ShowStrengthTrainingAbsMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m \u001b[0;94;44m█████████\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0m\r\n\u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m       \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░ \u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░      \u001b[0;34m▀\u001b[0;37m \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // ben
-        private void ShowStrengthTrainingLegsMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m███\u001b[0;37m     \u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m███████\u001b[0;37m   \u001b[0;94;44m█████████\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m       \u001b[0;94;44m▓▓█\u001b[0;37m      \u001b[0m\r\n\u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▓▓▓▒\u001b[0;37m   \u001b[0;94;44m▒▓▓\u001b[0;37m \u001b[0;94;44m▒█▓▓▒\u001b[0;37m \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0m\r\n\u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m       \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░      \u001b[0;34m█\u001b[0;37m \u001b[0;94;44m░░ \u001b[0;34m███\u001b[0;94;44m░  \u001b[0m");
-        }
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // cardio
-        private void ShowCardioMenuLogo()
-        {
-            Console.WriteLine("\u001b[0;94;44m███████\u001b[0;37m \u001b[0;94;44m█████████\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m█\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m██\u001b[0;94m▄\u001b[0;37m \u001b[0;94;44m███\u001b[0;37m \u001b[0;94;44m███\u001b[0;94m███\u001b[0;94;44m███\u001b[0m\r\n\u001b[0;94;44m▓▓█\u001b[0;37m     \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m \u001b[0;94;44m▓▓█\u001b[0;37m   \u001b[0;94;44m█▓▓\u001b[0m\r\n\u001b[0;94;44m▒▓▓\u001b[0;37m     \u001b[0;94;44m▒▓▓▓▒░▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓▓▒░▓▓\u001b[0;37m  \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m \u001b[0;94;44m▒▒▓\u001b[0;37m   \u001b[0;94;44m▓▓▒\u001b[0m\r\n\u001b[0;94;44m▒▒░\u001b[0;37m     \u001b[0;94;44m▒▒░\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m \u001b[0;94;44m░░▒\u001b[0;37m   \u001b[0;94;44m░░▒\u001b[0m\r\n\u001b[0;94;44m░░     \u001b[0;37m \u001b[0;94;44m░░ \u001b[0;37m   \u001b[0;94;44m░  \u001b[0;37m \u001b[0;94;44m░░░\u001b[0;37m   \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░      \u001b[0;34m▀\u001b[0;37m \u001b[0;94;44m ░░\u001b[0;37m \u001b[0;94;44m░░       \u001b[0m");
-        }
 
     }
 }
