@@ -6,20 +6,26 @@ namespace GymWorkoutManager.Classes
 {
     public class Datastore<T> 
     {
-        public void AddItem()
+        List<T> Items = new List<T>();
+        public void AddItem(T item)
         {
-            //metod för att lägga till workout
+            Items.Add(item);
         }
-        public void RemoveItem()
+        public void RemoveItem(T item)
         {
-            //metod för att radera en workout
+            Items.Remove(item);
         }
 
-        public void FindItem()
+        public void FindItem(T item)
         {
             //hittar workoutsen
         }
 
+        public List<T> GetAll()
+        {
+            return Items;
+        }
+       
         //Sparar informationen från programmet till Json filen
         public void SaveToJson()
         {

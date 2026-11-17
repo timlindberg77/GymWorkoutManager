@@ -9,7 +9,7 @@ namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
-   
+        public Datastore<Workout> Workout = new();
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
         private Workout? CurrentWorkout { get; set; } //passet som pågår just nu (null = inget pass)
