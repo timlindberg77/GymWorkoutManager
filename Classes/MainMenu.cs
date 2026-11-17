@@ -93,7 +93,7 @@ namespace GymWorkoutManager.Classes
                         {
                             return true;
                         }
-                        EndWorkout();
+                        EndWorkoutStrength();
                         break;
                     case "Cardio":
                         Console.Clear();
@@ -103,7 +103,7 @@ namespace GymWorkoutManager.Classes
                         {
                             return true;
                         }
-                        EndWorkout();
+                        EndWorkoutCardio();
                         break;
                     case "Back":
                         Console.Clear();
@@ -448,9 +448,16 @@ namespace GymWorkoutManager.Classes
             // tid i minuter
             double time = AnsiConsole.Ask<double>("Enter time in minutes:");
 
-            // Här ska en lista för träningspassen skapas senare
-            // Träningspasset ska sparas i listan här
-            // Exempel: workouts.Add($"{workoutType}: {km} km, {time} minuter");
+            Workout? workout = CurrentWorkout;
+            if (workout == null) return;
+
+            Exercise? exercise = workout.Exercises.FirstOrDefault(existingExercise => existingExercise.Name == workoutType);
+            if (exercise == null)
+            {
+                exercise = new Exercise { Name = workoutType };
+                workout.Exercises.Add(exercise);
+            }
+            exercise.Sets.Add(new WorkSet { Time = time, Km = km });
 
             Console.WriteLine();
             AnsiConsole.MarkupLine("[green]Workout successfully registered![/]");
@@ -470,7 +477,7 @@ namespace GymWorkoutManager.Classes
             Console.Clear();
         }
         //metod som gör stänger workouten
-        private void EndWorkout()
+        private void EndWorkoutStrength()
         {
             if (CurrentWorkout != null)
             {
@@ -487,6 +494,28 @@ namespace GymWorkoutManager.Classes
                 }
 
                 Console.ReadKey();   
+            }
+
+            CurrentWorkout = null;
+        }
+
+        private void EndWorkoutCardio()
+        {
+            if (CurrentWorkout != null)
+            {
+                AnsiConsole.MarkupLine($"[bold]Pass: {CurrentWorkout.WorkoutDate}[/]");
+
+                foreach (Exercise exercise in CurrentWorkout.Exercises)
+                {
+                    AnsiConsole.MarkupLine($"[yellow]{exercise.Name}[/]");
+
+                    foreach (WorkSet set in exercise.Sets)
+                    {
+                        AnsiConsole.MarkupLine($"   {set.Km} Km x {set.Time} Minutes ");
+                    }
+                }
+
+                Console.ReadKey();
             }
 
             CurrentWorkout = null;

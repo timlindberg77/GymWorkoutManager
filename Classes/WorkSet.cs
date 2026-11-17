@@ -9,5 +9,9 @@ namespace GymWorkoutManager.Classes
         public double Weight { get; set; }
 
         public int RepCount { get; set; }
+
+        public double Km { get; set; }
+
+        public double Time { get; set; }
     }
 }
