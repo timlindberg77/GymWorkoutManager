@@ -9,7 +9,7 @@ namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
-        public Datastore<Workout> Workout = new();
+        public Datastore<Workout> WorkoutStore = new();
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
         private Workout? CurrentWorkout { get; set; } //passet som pågår just nu (null = inget pass)
@@ -63,7 +63,6 @@ namespace GymWorkoutManager.Classes
                         break;
                 }
             }
-
             Console.WriteLine("You chose to end the program.");
         }
 
@@ -103,6 +102,7 @@ namespace GymWorkoutManager.Classes
                         {
                             return true;
                         }
+                        //Lägg till spara funktionen
                         EndWorkoutCardio();
                         break;
                     case "Back":
@@ -490,10 +490,16 @@ namespace GymWorkoutManager.Classes
                     foreach (WorkSet set in exercise.Sets)
                     {
                         AnsiConsole.MarkupLine($"   {set.Weight} kg x {set.RepCount}");
+
                     }
                 }
+                if (CurrentWorkout.Exercises.Count > 0)    // spara inte tomma pass
+                {
+                    WorkoutStore.AddItem(CurrentWorkout);
+                }
 
-                Console.ReadKey();   
+                CleanConsole();
+
             }
 
             CurrentWorkout = null;
@@ -514,8 +520,11 @@ namespace GymWorkoutManager.Classes
                         AnsiConsole.MarkupLine($"   {set.Km} Km x {set.Time} Minutes ");
                     }
                 }
-
-                Console.ReadKey();
+                if (CurrentWorkout.Exercises.Count > 0)    // spara inte tomma pass
+                {
+                    WorkoutStore.AddItem(CurrentWorkout);
+                }
+                CleanConsole();
             }
 
             CurrentWorkout = null;
