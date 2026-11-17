@@ -6,7 +6,7 @@ namespace GymWorkoutManager.Classes
 {
     public class WorkSet
     {
-        public int Weight { get; set; }
+        public double Weight { get; set; }
 
         public int RepCount { get; set; }
     }
