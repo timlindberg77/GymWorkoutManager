@@ -12,6 +12,8 @@ namespace GymWorkoutManager.Classes
    
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
+        private Workout? CurrentWorkout { get; set; } //passet som pågår just nu (null = inget pass)
+
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // 1. HUVUDMENY
@@ -85,19 +87,23 @@ namespace GymWorkoutManager.Classes
                 {
                     case "Strength training":
                         Console.Clear();
+                        CurrentWorkout = new Workout(); //skapar en ny workout
                         bool exitFromStrengthTrainig = StrengthTrainingMenu();
                         if (exitFromStrengthTrainig)
                         {
                             return true;
                         }
+                        EndWorkout();
                         break;
                     case "Cardio":
                         Console.Clear();
+                        CurrentWorkout = new Workout();
                         bool exitFromCardio = CardioMenu();
                         if (exitFromCardio)
                         {
                             return true;
                         }
+                        EndWorkout();
                         break;
                     case "Back":
                         Console.Clear();
@@ -382,9 +388,16 @@ namespace GymWorkoutManager.Classes
             // antal reps
             int reps = AnsiConsole.Ask<int>("Enter number of reps:");
 
-            // Här ska en lista för träningspassen skapas senare
-            // Träningspasset ska sparas i listan här
-            // Exempel: workouts.Add($"{workoutType}: {weight} kg, {reps} repetitioner");
+            Workout? workout = CurrentWorkout;
+            if (workout == null) return;
+
+            Exercise? exercise = workout.Exercises.FirstOrDefault(existingExercise => existingExercise.Name == workoutType);
+            if (exercise == null)
+            {
+                exercise = new Exercise { Name = workoutType };
+                workout.Exercises.Add(exercise);
+            }
+            exercise.Sets.Add(new WorkSet { Weight = weight, RepCount = reps });
 
             Console.WriteLine();
             AnsiConsole.MarkupLine("[green]Workout successfully registered![/]");
@@ -456,7 +469,31 @@ namespace GymWorkoutManager.Classes
             Console.ReadLine();
             Console.Clear();
         }
+        //metod som gör stänger workouten
+        private void EndWorkout()
+        {
+            if (CurrentWorkout != null)
+            {
+                AnsiConsole.MarkupLine($"[bold]Pass: {CurrentWorkout.WorkoutDate}[/]");
 
+                foreach (Exercise exercise in CurrentWorkout.Exercises)
+                {
+                    AnsiConsole.MarkupLine($"[yellow]{exercise.Name}[/]");
 
+                    foreach (WorkSet set in exercise.Sets)
+                    {
+                        AnsiConsole.MarkupLine($"   {set.Weight} kg x {set.RepCount}");
+                    }
+                }
+
+                Console.ReadKey();   
+            }
+
+            CurrentWorkout = null;
+        }
+        //private void EndWorkout() 
+        //{
+        //    CurrentWorkout = null;
+        //}
     }
 }
