@@ -6,7 +6,7 @@ namespace GymWorkoutManager.Classes
 {
     public class Datastore<T> 
     {
-        List<T> Items = new List<T>();
+        List<T> Items = new();
         public void AddItem(T item)
         {
             Items.Add(item);

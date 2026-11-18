@@ -9,6 +9,7 @@ namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
+        public WorkoutLogMenu workoutmenu; 
         public Datastore<Workout> WorkoutStore = new();
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
@@ -21,6 +22,7 @@ namespace GymWorkoutManager.Classes
 
         public void ShowMainMenu()
         {
+            workoutmenu = new(WorkoutStore);
             Console.WriteLine(SpectreLogos.LogoStart());
             Console.WriteLine("Press ENTER to start");
             Console.ReadLine();
@@ -55,8 +57,7 @@ namespace GymWorkoutManager.Classes
                         }
                         break;
                     case "WorkoutLog":
-                        Console.WriteLine("WorkoutLog");
-                        CleanConsole();
+                        workoutmenu.workoutLogMenu();
                         break;
                     case "Exit":
                         menuKeepRunning = false;
@@ -203,7 +204,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingChestMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingChestMenuLogo());
 
                 string choiceMuscleGroupChest = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -228,7 +229,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingBackMusclesMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingBackMusclesMenuLogo());
 
                 string choiceMuscleGroupBackMuscles = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -253,7 +254,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingShouldersMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingShouldersMenuLogo());
 
                 string choiceMuscleGroupShoulders = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -278,7 +279,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingBicepsMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingBicepsMenuLogo());
 
                 string choiceMuscleGroupBiceps = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -303,7 +304,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingTricepsMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingTricepsMenuLogo());
 
                 string choiceMuscleGroupTriceps = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -328,7 +329,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingAbsMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingAbsMenuLogo());
 
                 string choiceMuscleGroupAbs = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -353,7 +354,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.StrengthTrainingLegsMenuLogo);
+                Console.WriteLine(SpectreLogos.StrengthTrainingLegsMenuLogo());
 
                 string choiceMuscleGroupLegs = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
@@ -414,7 +415,7 @@ namespace GymWorkoutManager.Classes
         {
             while (true)
             {
-                Console.WriteLine(SpectreLogos.CardioMenuLogo);
+                Console.WriteLine(SpectreLogos.CardioMenuLogo());
 
                 string cardioExercise = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
