@@ -10,7 +10,7 @@ namespace GymWorkoutManager.Classes
         public DateTime WorkoutDate { get; set; } = DateTime.Now;
 
         // Skapat en lista för att lagra alla Workouts
-        public List<Exercise> Exercises = new List<Exercise>();
+        public List<Exercise> Exercises { get; set; } = new();
 
     }
 }

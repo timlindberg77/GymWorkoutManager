@@ -10,7 +10,7 @@ namespace GymWorkoutManager.Classes
     public class MainMenu
     {
         public WorkoutLogMenu workoutmenu; 
-        public Datastore<Workout> WorkoutStore = new();
+        public Datastore<Workout> WorkoutStore = new("workouts.json");
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
         private Workout? CurrentWorkout { get; set; } //passet som pågår just nu (null = inget pass)
@@ -64,6 +64,8 @@ namespace GymWorkoutManager.Classes
                         break;
                 }
             }
+            WorkoutStore.SaveToJson();
+
             Console.WriteLine("You chose to end the program.");
         }
 
