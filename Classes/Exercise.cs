@@ -9,7 +9,7 @@ namespace GymWorkoutManager.Classes
         public string Name { get; set; }
 
         // Lista på alla sets i en Workout
-        public List<WorkSet> Sets = new List<WorkSet>();
+        public List<WorkSet> Sets { get; set; } = new();
 
     }
 }
