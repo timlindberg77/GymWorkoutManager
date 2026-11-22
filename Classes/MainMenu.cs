@@ -13,6 +13,7 @@ namespace GymWorkoutManager.Classes
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
         private Workout? CurrentWorkout { get; set; } // passet som pågår just nu
+        public Logger logger = new Logger(); //kopplar logger 
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // 1. HUVUDMENY
@@ -37,40 +38,52 @@ namespace GymWorkoutManager.Classes
 
             while (menuKeepRunning)
             {
-                Console.WriteLine(SpectreLogos.MenuLogo());
-
-                string choice = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                        .Title("Welcome to RepRange")
-                        .AddChoices("New Workout", "WorkoutLog", "Exit"));
-
-                Console.Clear();
-
-                switch (choice)
+                try
                 {
-                    case "New Workout":
+                    Console.WriteLine(SpectreLogos.MenuLogo());
 
-                        bool exitProgram = NewWorkoutMenu();
+                    string choice = AnsiConsole.Prompt(
+                        new SelectionPrompt<string>()
+                            .Title("Welcome to RepRange")
+                            .AddChoices("New Workout", "WorkoutLog", "Exit"));
 
-                        if (exitProgram)
-                        {
+                    Console.Clear();
+
+                    switch (choice)
+                    {
+                        case "New Workout":
+
+                            bool exitProgram = NewWorkoutMenu();
+
+                            if (exitProgram)
+                            {
+                                menuKeepRunning = false;
+                            }
+
+                            break;
+
+                        case "WorkoutLog":
+
+                            workoutmenu.workoutLogMenu();
+
+                            break;
+
+                        case "Exit":
+
                             menuKeepRunning = false;
-                        }
 
-                        break;
-
-                    case "WorkoutLog":
-
-                        workoutmenu.workoutLogMenu();
-
-                        break;
-
-                    case "Exit":
-
-                        menuKeepRunning = false;
-
-                        break;
+                            break;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    CurrentWorkout = null;   // släng ett halvfärdigt pass
+                    Console.Clear();
+                    AnsiConsole.MarkupLine($"[red]Something went wrong: {Markup.Escape(ex.Message)}[/]");
+                    logger.LogError(ex.Message);
+                    CleanConsole();
+                }
+
             }
 
             WorkoutStore.SaveToJson();

@@ -15,5 +15,22 @@
       }
     ],
     "Name": "rygg"
+  },
+  {
+    "WorkoutDate": "2026-11-22T19:06:14.4153694+01:00",
+    "Exercises": [
+      {
+        "Name": "Bench Press",
+        "Sets": [
+          {
+            "Weight": 222,
+            "RepCount": 2,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      }
+    ],
+    "Name": "bench"
   }
 ]
