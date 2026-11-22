@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-
 namespace GymWorkoutManager.Classes
 {
     public class MainMenu
@@ -13,8 +12,7 @@ namespace GymWorkoutManager.Classes
         public Datastore<Workout> WorkoutStore = new("workouts.json");
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
-        private Workout? CurrentWorkout { get; set; } //passet som pågår just nu (null = inget pass)
-
+        private Workout? CurrentWorkout { get; set; } // passet som pågår just nu
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // 1. HUVUDMENY
@@ -23,11 +21,11 @@ namespace GymWorkoutManager.Classes
         public void ShowMainMenu()
         {
             workoutmenu = new(WorkoutStore);
+
             Console.WriteLine(SpectreLogos.LogoStart());
             Console.WriteLine("Press ENTER to start");
             Console.ReadLine();
             Console.Clear();
-
 
             spectreFunktion.ShowLoadingBar();
 
@@ -49,21 +47,30 @@ namespace GymWorkoutManager.Classes
                 switch (choice)
                 {
                     case "New Workout":
-                        // true = användaren valde Exit längre ner
+
                         bool exitProgram = NewWorkoutMenu();
+
                         if (exitProgram)
                         {
                             menuKeepRunning = false;
                         }
+
                         break;
+
                     case "WorkoutLog":
+
                         workoutmenu.workoutLogMenu();
+
                         break;
+
                     case "Exit":
+
                         menuKeepRunning = false;
+
                         break;
                 }
             }
+
             WorkoutStore.SaveToJson();
 
             Console.WriteLine("You chose to end the program.");
@@ -73,7 +80,6 @@ namespace GymWorkoutManager.Classes
         // 2. NEW WORKOUT
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // true = avsluta programmet, false = gå tillbaka
         private bool NewWorkoutMenu()
         {
             while (true)
@@ -83,35 +89,56 @@ namespace GymWorkoutManager.Classes
                 string choiceNewWork = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Add an exercise")
-                        .AddChoices("Strength training", "Cardio", "Back", "Exit"));
+                        .AddChoices(
+                            "Strength training",
+                            "Cardio",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceNewWork)
                 {
                     case "Strength training":
+
                         Console.Clear();
-                        CurrentWorkout = new Workout(); //skapar en ny workout
+
+                        CurrentWorkout = new Workout();
+
                         bool exitFromStrengthTrainig = StrengthTrainingMenu();
+
                         if (exitFromStrengthTrainig)
                         {
                             return true;
                         }
+
                         EndWorkoutStrength();
+
                         break;
+
                     case "Cardio":
+
                         Console.Clear();
+
                         CurrentWorkout = new Workout();
+
                         bool exitFromCardio = CardioMenu();
+
                         if (exitFromCardio)
                         {
                             return true;
                         }
-                        //Lägg till spara funktionen
+
                         EndWorkoutCardio();
+
                         break;
+
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
                 }
             }
@@ -121,7 +148,6 @@ namespace GymWorkoutManager.Classes
         // 3. STRENGTH TRAINING
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // väljer muskelgrupp
         private bool StrengthTrainingMenu()
         {
             while (true)
@@ -131,77 +157,134 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroup = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose a muscle group")
-                        .AddChoices("Chest", "Back Muscles", "Shoulders", "Biceps", "Triceps", "Abs", "Legs", "Back", "Exit"));
+                        .AddChoices(
+                            "Chest",
+                            "Back Muscles",
+                            "Shoulders",
+                            "Biceps",
+                            "Triceps",
+                            "Abs",
+                            "Legs",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroup)
                 {
                     case "Chest":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigChest = StrengthTrainingChestMenu();
+
+                        bool exitFromStrengthTrainigChest =
+                            StrengthTrainingChestMenu();
+
                         if (exitFromStrengthTrainigChest)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Back Muscles":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigBackMuscles = StrengthTrainingBackMusclesMenu();
+
+                        bool exitFromStrengthTrainigBackMuscles =
+                            StrengthTrainingBackMusclesMenu();
+
                         if (exitFromStrengthTrainigBackMuscles)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Shoulders":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigShoulders = StrengthTrainingShouldersMenu();
+
+                        bool exitFromStrengthTrainigShoulders =
+                            StrengthTrainingShouldersMenu();
+
                         if (exitFromStrengthTrainigShoulders)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Biceps":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigBiceps = StrengthTrainingBicepsMenu();
+
+                        bool exitFromStrengthTrainigBiceps =
+                            StrengthTrainingBicepsMenu();
+
                         if (exitFromStrengthTrainigBiceps)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Triceps":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigTriceps = StrengthTrainingTricepsMenu();
+
+                        bool exitFromStrengthTrainigTriceps =
+                            StrengthTrainingTricepsMenu();
+
                         if (exitFromStrengthTrainigTriceps)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Abs":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigAbs = StrengthTrainingAbsMenu();
+
+                        bool exitFromStrengthTrainigAbs =
+                            StrengthTrainingAbsMenu();
+
                         if (exitFromStrengthTrainigAbs)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Legs":
+
                         Console.Clear();
-                        bool exitFromStrengthTrainigLegs = StrengthTrainingLegsMenu();
+
+                        bool exitFromStrengthTrainigLegs =
+                            StrengthTrainingLegsMenu();
+
                         if (exitFromStrengthTrainigLegs)
                         {
                             return true;
                         }
+
                         break;
+
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // bröst
+        // BRÖST
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingChestMenu()
         {
             while (true)
@@ -211,22 +294,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupChest = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Bench Press", "Pec Deck", "Dumbbell Press", "Chest Press", "Push-Ups", "Back", "Exit"));
+                        .AddChoices(
+                            "Bench Press",
+                            "Pec Deck",
+                            "Dumbbell Press",
+                            "Chest Press",
+                            "Push-Ups",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupChest)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupChest); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupChest);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // rygg
+        // RYGG
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingBackMusclesMenu()
         {
             while (true)
@@ -236,22 +337,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupBackMuscles = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Lat Pulldown", "Pull-Up", "Barbell Row", "Deadlift", "Cable Row", "Back", "Exit"));
+                        .AddChoices(
+                            "Lat Pulldown",
+                            "Pull-Up",
+                            "Barbell Row",
+                            "Deadlift",
+                            "Cable Row",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupBackMuscles)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupBackMuscles); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupBackMuscles);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // axlar
+        // AXLAR
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingShouldersMenu()
         {
             while (true)
@@ -261,22 +380,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupShoulders = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Lateral raise", "Shoulder press", "Upright Row", "Face Pull", "Military press", "Back", "Exit"));
+                        .AddChoices(
+                            "Lateral raise",
+                            "Shoulder press",
+                            "Upright Row",
+                            "Face Pull",
+                            "Military press",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupShoulders)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupShoulders); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupShoulders);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // biceps
+        // BICEPS
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingBicepsMenu()
         {
             while (true)
@@ -286,22 +423,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupBiceps = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Dumbbell curl", "Cable curl", "Barbell curl", "Preacher curl", "Spider curl", "Back", "Exit"));
+                        .AddChoices(
+                            "Dumbbell curl",
+                            "Cable curl",
+                            "Barbell curl",
+                            "Preacher curl",
+                            "Spider curl",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupBiceps)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupBiceps); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupBiceps);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // triceps
+        // TRICEPS
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingTricepsMenu()
         {
             while (true)
@@ -311,22 +466,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupTriceps = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Tricep pushdown", "Tricep extension", "Overhead press", "Skull crusher", "Dips", "Back", "Exit"));
+                        .AddChoices(
+                            "Tricep pushdown",
+                            "Tricep extension",
+                            "Overhead press",
+                            "Skull crusher",
+                            "Dips",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupTriceps)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupTriceps); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupTriceps);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // mage
+        // MAGE
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingAbsMenu()
         {
             while (true)
@@ -336,22 +509,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupAbs = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Crunch", "Cable crunch", "Leg raise", "Sit ups", "Plank", "Back", "Exit"));
+                        .AddChoices(
+                            "Crunch",
+                            "Cable crunch",
+                            "Leg raise",
+                            "Sit ups",
+                            "Plank",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupAbs)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupAbs); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupAbs);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // ben
+        // BEN
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private bool StrengthTrainingLegsMenu()
         {
             while (true)
@@ -361,23 +552,40 @@ namespace GymWorkoutManager.Classes
                 string choiceMuscleGroupLegs = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Leg press", "Squats", "Leg extension", "Leg curl", "RDL", "Back", "Exit"));
+                        .AddChoices(
+                            "Leg press",
+                            "Squats",
+                            "Leg extension",
+                            "Leg curl",
+                            "RDL",
+                            "Back",
+                            "Exit"));
 
                 switch (choiceMuscleGroupLegs)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                        ;
-                    default: RegisterStrengthWorkout(choiceMuscleGroupLegs); break;
+
+                    default:
+
+                        RegisterStrengthWorkout(choiceMuscleGroupLegs);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // frågar efter vikt och reps
+        // FRÅGAR EFTER VIKT OCH REPS
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private void RegisterStrengthWorkout(string workoutType)
         {
             Console.Clear();
@@ -385,25 +593,42 @@ namespace GymWorkoutManager.Classes
             AnsiConsole.MarkupLine($"[bold yellow]{workoutType}[/]");
             Console.WriteLine();
 
-            // vikt i kg
-            double weight = AnsiConsole.Ask<double>("Enter weight in kg:");
+            double weight =
+                AnsiConsole.Ask<double>("Enter weight in kg:");
 
-            // antal reps
-            int reps = AnsiConsole.Ask<int>("Enter number of reps:");
+            int reps =
+                AnsiConsole.Ask<int>("Enter number of reps:");
 
             Workout? workout = CurrentWorkout;
-            if (workout == null) return;
 
-            Exercise? exercise = workout.Exercises.FirstOrDefault(existingExercise => existingExercise.Name == workoutType);
+            if (workout == null)
+                return;
+
+            Exercise? exercise =
+                workout.Exercises.FirstOrDefault(
+                    existingExercise => existingExercise.Name == workoutType);
+
             if (exercise == null)
             {
-                exercise = new Exercise { Name = workoutType };
+                exercise = new Exercise
+                {
+                    Name = workoutType
+                };
+
                 workout.Exercises.Add(exercise);
             }
-            exercise.Sets.Add(new WorkSet { Weight = weight, RepCount = reps });
+
+            exercise.Sets.Add(
+                new WorkSet
+                {
+                    Weight = weight,
+                    RepCount = reps
+                });
 
             Console.WriteLine();
-            AnsiConsole.MarkupLine("[green]Workout successfully registered![/]");
+
+            AnsiConsole.MarkupLine(
+                "[green]Workout successfully registered![/]");
 
             Console.ReadKey();
         }
@@ -412,7 +637,6 @@ namespace GymWorkoutManager.Classes
         // 4. CARDIO
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // väljer typ av cardio
         private bool CardioMenu()
         {
             while (true)
@@ -422,22 +646,39 @@ namespace GymWorkoutManager.Classes
                 string cardioExercise = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Choose an exercise")
-                        .AddChoices("Running", "Cycling", "Rowing", "Swimming", "Back", "Exit"));
+                        .AddChoices(
+                            "Running",
+                            "Cycling",
+                            "Rowing",
+                            "Swimming",
+                            "Back",
+                            "Exit"));
 
                 switch (cardioExercise)
                 {
                     case "Back":
+
                         Console.Clear();
+
                         return false;
+
                     case "Exit":
+
                         return true;
-                    default: RegisterCardioWorkout(cardioExercise); break;
+
+                    default:
+
+                        RegisterCardioWorkout(cardioExercise);
+
+                        break;
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // frågar efter distans och tid
+        // FRÅGAR EFTER DISTANS OCH TID
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private void RegisterCardioWorkout(string workoutType)
         {
             Console.Clear();
@@ -445,25 +686,42 @@ namespace GymWorkoutManager.Classes
             AnsiConsole.MarkupLine($"[bold yellow]{workoutType}[/]");
             Console.WriteLine();
 
-            // distans i km
-            double km = AnsiConsole.Ask<double>("Enter distance in km:");
+            double km =
+                AnsiConsole.Ask<double>("Enter distance in km:");
 
-            // tid i minuter
-            double time = AnsiConsole.Ask<double>("Enter time in minutes:");
+            double time =
+                AnsiConsole.Ask<double>("Enter time in minutes:");
 
             Workout? workout = CurrentWorkout;
-            if (workout == null) return;
 
-            Exercise? exercise = workout.Exercises.FirstOrDefault(existingExercise => existingExercise.Name == workoutType);
+            if (workout == null)
+                return;
+
+            Exercise? exercise =
+                workout.Exercises.FirstOrDefault(
+                    existingExercise => existingExercise.Name == workoutType);
+
             if (exercise == null)
             {
-                exercise = new Exercise { Name = workoutType };
+                exercise = new Exercise
+                {
+                    Name = workoutType
+                };
+
                 workout.Exercises.Add(exercise);
             }
-            exercise.Sets.Add(new WorkSet { Time = time, Km = km });
+
+            exercise.Sets.Add(
+                new WorkSet
+                {
+                    Time = time,
+                    Km = km
+                });
 
             Console.WriteLine();
-            AnsiConsole.MarkupLine("[green]Workout successfully registered![/]");
+
+            AnsiConsole.MarkupLine(
+                "[green]Workout successfully registered![/]");
 
             Console.ReadKey();
         }
@@ -472,37 +730,51 @@ namespace GymWorkoutManager.Classes
         // 5. HJÄLPMETOD
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // väntar på ENTER och rensar skärmen
         private void CleanConsole()
         {
             Console.WriteLine("Press ENTER to return to the menu");
             Console.ReadLine();
             Console.Clear();
         }
-        //metod som gör stänger workouten
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // AVSLUTA OCH SPARA STYRKETRÄNING
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private void EndWorkoutStrength()
         {
             if (CurrentWorkout != null)
             {
-                AnsiConsole.MarkupLine($"[bold]Pass: {CurrentWorkout.WorkoutDate}[/]");
+                AnsiConsole.MarkupLine(
+                    $"[bold]Pass: {CurrentWorkout.WorkoutDate}[/]");
 
                 foreach (Exercise exercise in CurrentWorkout.Exercises)
                 {
-                    AnsiConsole.MarkupLine($"[yellow]{exercise.Name}[/]");
+                    AnsiConsole.MarkupLine(
+                        $"[yellow]{exercise.Name}[/]");
 
                     foreach (WorkSet set in exercise.Sets)
                     {
-                        AnsiConsole.MarkupLine($"   {set.Weight} kg x {set.RepCount}");
+                        AnsiConsole.MarkupLine(
+                            $"   {set.Weight} kg x {set.RepCount}");
                     }
                 }
 
-                if (CurrentWorkout.Exercises.Count > 0)    // spara inte tomma pass
+                if (CurrentWorkout.Exercises.Count > 0)
                 {
-                    // Frågar efter ett namn innan passet sparas
-                    string workoutName = AnsiConsole.Ask<string>("Enter a name for your workout:");
+                    string workoutName =
+                        AnsiConsole.Ask<string>(
+                            "Enter a name for your workout:");
+
                     CurrentWorkout.Name = workoutName;
 
                     WorkoutStore.AddItem(CurrentWorkout);
+
+                    // Spara workouten
+                    WorkoutStore.SaveToJson();
+
+                    // Visa progressbar
+                    spectreFunktion.ShowSaveProgress();
                 }
 
                 CleanConsole();
@@ -511,29 +783,44 @@ namespace GymWorkoutManager.Classes
             CurrentWorkout = null;
         }
 
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // AVSLUTA OCH SPARA CARDIO
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private void EndWorkoutCardio()
         {
             if (CurrentWorkout != null)
             {
-                AnsiConsole.MarkupLine($"[bold]Pass: {CurrentWorkout.WorkoutDate}[/]");
+                AnsiConsole.MarkupLine(
+                    $"[bold]Pass: {CurrentWorkout.WorkoutDate}[/]");
 
                 foreach (Exercise exercise in CurrentWorkout.Exercises)
                 {
-                    AnsiConsole.MarkupLine($"[yellow]{exercise.Name}[/]");
+                    AnsiConsole.MarkupLine(
+                        $"[yellow]{exercise.Name}[/]");
 
                     foreach (WorkSet set in exercise.Sets)
                     {
-                        AnsiConsole.MarkupLine($"   {set.Km} Km x {set.Time} Minutes ");
+                        AnsiConsole.MarkupLine(
+                            $"   {set.Km} Km x {set.Time} Minutes");
                     }
                 }
 
-                if (CurrentWorkout.Exercises.Count > 0)    // spara inte tomma pass
+                if (CurrentWorkout.Exercises.Count > 0)
                 {
-                    // Frågar efter ett namn innan passet sparas
-                    string workoutName = AnsiConsole.Ask<string>("Enter a name for your workout:");
+                    string workoutName =
+                        AnsiConsole.Ask<string>(
+                            "Enter a name for your workout:");
+
                     CurrentWorkout.Name = workoutName;
 
                     WorkoutStore.AddItem(CurrentWorkout);
+
+                    // Spara workouten
+                    WorkoutStore.SaveToJson();
+
+                    // Visa progressbar
+                    spectreFunktion.ShowSaveProgress();
                 }
 
                 CleanConsole();
