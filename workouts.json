@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "WorkoutDate": "2026-11-22T18:20:52.2181657+01:00",
+    "Exercises": [
+      {
+        "Name": "Lat Pulldown",
+        "Sets": [
+          {
+            "Weight": 2,
+            "RepCount": 2,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      }
+    ],
+    "Name": "rygg"
+  }
+]

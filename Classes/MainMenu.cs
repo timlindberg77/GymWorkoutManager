@@ -29,6 +29,8 @@ namespace GymWorkoutManager.Classes
 
             spectreFunktion.ShowLoadingBar();
 
+            WorkoutStore.LoadFromJson();
+
             Console.Clear();
 
             bool menuKeepRunning = true;
