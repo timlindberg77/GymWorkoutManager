@@ -28,11 +28,34 @@ namespace GymWorkoutManager.Classes
 
                     while (!ctx.IsFinished)
                     {
-                        task.Increment(2);
+                        task.Increment(5);
                         Thread.Sleep(50);
                     }
                 });
-        }   
+        }
+
+        // Laddningbar som visas när en workout är sparad
+        public void ShowSaveProgress()
+        {
+            AnsiConsole.Progress()
+                .Columns(
+                    new TaskDescriptionColumn(),
+                    new ProgressBarColumn(),
+                    new PercentageColumn(),
+                    new SpinnerColumn())
+                .Start(ctx =>
+                {
+                    var task = ctx.AddTask("Saving workout...", maxValue: 100);
+
+                    while (!ctx.IsFinished)
+                    {
+                        task.Increment(5);
+                        Thread.Sleep(50);
+                    }
+                });
+
+            AnsiConsole.MarkupLine("[green]Workout saved successfully![/]");
+        }
     }
 }
 
