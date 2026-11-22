@@ -12,5 +12,7 @@ namespace GymWorkoutManager.Classes
         // Skapat en lista för att lagra alla Workouts
         public List<Exercise> Exercises { get; set; } = new();
 
+        public string Name { get; set; } = string.Empty;
+
     }
 }
