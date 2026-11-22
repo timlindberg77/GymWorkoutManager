@@ -38,7 +38,7 @@ namespace GymWorkoutManager.Classes
         //Sparar informationen från programmet till Json filen
         public void SaveToJson()
         {
-            try
+            try //försöker spara
             {
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string json = JsonSerializer.Serialize(Items, options);
@@ -46,16 +46,32 @@ namespace GymWorkoutManager.Classes
 
                 AnsiConsole.MarkupLine($"Saved workout");
             }
-            catch (Exception ex)
+            catch (Exception ex) //felhantering, fångar fel
             {
-                AnsiConsole.MarkupLine($"Could not save workout");
+                AnsiConsole.MarkupLine($"Could not save workout"); 
             }
         }
 
         //Laddar in existerande information som finns sparat på json filen
         public void LoadFromJson()
         {
-            //skapas senare med logger klassen
+            try
+            {
+                string Json = File.ReadAllText(Filepath); //Läser in informationen från json filen
+
+                List<T>? loadedItems = JsonSerializer.Deserialize<List<T>>(Json);
+                Items = loadedItems ?? new List<T>();
+            }
+            catch (JsonException ex)
+            {
+                AnsiConsole.MarkupLine($"Save file could not be read: {Markup.Escape(ex.Message)}");
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                AnsiConsole.MarkupLine($"Could not load data: {Markup.Escape(ex.Message)}");
+                Console.ReadKey();
+            }
         }
 
         private static string GetProjectDirectory() //Nemos metod för att slippa öppna bin för att se json filen
