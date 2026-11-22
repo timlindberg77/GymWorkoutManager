@@ -50,7 +50,7 @@ namespace GymWorkoutManager.Classes
                         .Title("Select a workout:")
                         .PageSize(10)
                         .UseConverter(workout =>
-                            $"{workout.WorkoutDate:yyyy-MM-dd HH:mm}")
+                            $"{workout.Name} - {workout.WorkoutDate:yyyy-MM-dd HH:mm}")
                         .AddChoices(sortedWorkouts)
                 );
 
@@ -58,17 +58,17 @@ namespace GymWorkoutManager.Classes
 
                 // Vad vill användaren göra?
                 string choice = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                        .Title(
-                            $"Selected workout: [yellow]{selectedWorkout.WorkoutDate:yyyy-MM-dd HH:mm}[/]"
-                        )
-                        .AddChoices(
-                            "Update workout",
-                            "Delete workout",
-                            "Back",
-                            "Exit"
-                        )
-                );
+                new SelectionPrompt<string>()
+                    .Title(
+                        $"Selected workout: [yellow]{selectedWorkout.Name} - {selectedWorkout.WorkoutDate:yyyy-MM-dd HH:mm}[/]"
+                    )
+                    .AddChoices(
+                        "Update workout",
+                        "Delete workout",
+                        "Back",
+                        "Exit"
+                    )
+            );
 
                 switch (choice)
                 {

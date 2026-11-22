@@ -9,7 +9,7 @@ namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
-        public WorkoutLogMenu workoutmenu; 
+        public WorkoutLogMenu workoutmenu;
         public Datastore<Workout> WorkoutStore = new("workouts.json");
         public SpectreFunktion spectreFunktion = new SpectreFunktion();
         public SpectreLogos spectreLogos = new SpectreLogos();
@@ -493,16 +493,19 @@ namespace GymWorkoutManager.Classes
                     foreach (WorkSet set in exercise.Sets)
                     {
                         AnsiConsole.MarkupLine($"   {set.Weight} kg x {set.RepCount}");
-
                     }
                 }
+
                 if (CurrentWorkout.Exercises.Count > 0)    // spara inte tomma pass
                 {
+                    // Frågar efter ett namn innan passet sparas
+                    string workoutName = AnsiConsole.Ask<string>("Enter a name for your workout:");
+                    CurrentWorkout.Name = workoutName;
+
                     WorkoutStore.AddItem(CurrentWorkout);
                 }
 
                 CleanConsole();
-
             }
 
             CurrentWorkout = null;
@@ -523,18 +526,20 @@ namespace GymWorkoutManager.Classes
                         AnsiConsole.MarkupLine($"   {set.Km} Km x {set.Time} Minutes ");
                     }
                 }
+
                 if (CurrentWorkout.Exercises.Count > 0)    // spara inte tomma pass
                 {
+                    // Frågar efter ett namn innan passet sparas
+                    string workoutName = AnsiConsole.Ask<string>("Enter a name for your workout:");
+                    CurrentWorkout.Name = workoutName;
+
                     WorkoutStore.AddItem(CurrentWorkout);
                 }
+
                 CleanConsole();
             }
 
             CurrentWorkout = null;
         }
-        //private void EndWorkout() 
-        //{
-        //    CurrentWorkout = null;
-        //}
     }
 }
