@@ -1,18 +1,1 @@
-[
-  {
-    "WorkoutDate": "2026-11-22T15:38:38.3182099+01:00",
-    "Exercises": [
-      {
-        "Name": "Bench Press",
-        "Sets": [
-          {
-            "Weight": 5,
-            "RepCount": 4,
-            "Km": 0,
-            "Time": 0
-          }
-        ]
-      }
-    ]
-  }
-]
+[]
