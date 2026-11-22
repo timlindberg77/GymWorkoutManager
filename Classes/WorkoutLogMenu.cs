@@ -72,8 +72,6 @@ namespace GymWorkoutManager.Classes
 
                 switch (choice)
                 {
-
-
                     case "Update workout":
                         Console.WriteLine("Update workout selected.");
                         Console.ReadLine();
