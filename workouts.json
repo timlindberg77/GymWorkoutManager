@@ -1,36 +1,173 @@
 [
   {
-    "WorkoutDate": "2026-11-22T18:20:52.2181657+01:00",
-    "Exercises": [
-      {
-        "Name": "Lat Pulldown",
-        "Sets": [
-          {
-            "Weight": 2,
-            "RepCount": 2,
-            "Km": 0,
-            "Time": 0
-          }
-        ]
-      }
-    ],
-    "Name": "rygg"
-  },
-  {
-    "WorkoutDate": "2026-11-22T19:06:14.4153694+01:00",
+    "WorkoutDate": "2026-11-23T09:40:23.0159113+01:00",
     "Exercises": [
       {
         "Name": "Bench Press",
         "Sets": [
           {
-            "Weight": 222,
-            "RepCount": 2,
+            "Weight": 80,
+            "RepCount": 8,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 80,
+            "RepCount": 10,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 90,
+            "RepCount": 6,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 95,
+            "RepCount": 3,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      },
+      {
+        "Name": "Chest Press",
+        "Sets": [
+          {
+            "Weight": 40,
+            "RepCount": 10,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 65,
+            "RepCount": 10,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 70,
+            "RepCount": 5,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      },
+      {
+        "Name": "Push-Ups",
+        "Sets": [
+          {
+            "Weight": 70,
+            "RepCount": 10,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 70,
+            "RepCount": 10,
             "Km": 0,
             "Time": 0
           }
         ]
       }
     ],
-    "Name": "bench"
+    "Name": "Br\u00F6st workout"
+  },
+  {
+    "WorkoutDate": "2026-11-23T09:41:56.175338+01:00",
+    "Exercises": [
+      {
+        "Name": "Leg press",
+        "Sets": [
+          {
+            "Weight": 100,
+            "RepCount": 10,
+            "Km": 0,
+            "Time": 0
+          },
+          {
+            "Weight": 110,
+            "RepCount": 8,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      },
+      {
+        "Name": "Squats",
+        "Sets": [
+          {
+            "Weight": 110,
+            "RepCount": 8,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      },
+      {
+        "Name": "RDL",
+        "Sets": [
+          {
+            "Weight": 70,
+            "RepCount": 20,
+            "Km": 0,
+            "Time": 0
+          }
+        ]
+      }
+    ],
+    "Name": "Ben workout"
+  },
+  {
+    "WorkoutDate": "2026-11-23T09:42:47.9402054+01:00",
+    "Exercises": [
+      {
+        "Name": "Running",
+        "Sets": [
+          {
+            "Weight": 0,
+            "RepCount": 0,
+            "Km": 11,
+            "Time": 65
+          }
+        ]
+      }
+    ],
+    "Name": "L\u00F6pning workout"
+  },
+  {
+    "WorkoutDate": "2026-11-23T09:43:39.4948966+01:00",
+    "Exercises": [
+      {
+        "Name": "Cycling",
+        "Sets": [
+          {
+            "Weight": 0,
+            "RepCount": 0,
+            "Km": 44,
+            "Time": 125
+          }
+        ]
+      }
+    ],
+    "Name": "Cycling workout"
+  },
+  {
+    "WorkoutDate": "2026-11-23T09:44:29.4961592+01:00",
+    "Exercises": [
+      {
+        "Name": "Swimming",
+        "Sets": [
+          {
+            "Weight": 0,
+            "RepCount": 0,
+            "Km": 0.4,
+            "Time": 10
+          }
+        ]
+      }
+    ],
+    "Name": "Sim workout"
   }
 ]

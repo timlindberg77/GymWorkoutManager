@@ -11,9 +11,9 @@ namespace GymWorkoutManager.Classes
     {
         public SpectreLogos spectReLogos = new SpectreLogos();
 
-        public Datastore<Workout> workoutStore;
+        public Datastore<Workout> workoutStore; // Kopplar datastore för att komma åt alla pass
 
-        public WorkoutLogMenu(Datastore<Workout> store)
+        public WorkoutLogMenu(Datastore<Workout> store) // Tar emot Datastore med alla pass och sparar den i fältet
         {
             workoutStore = store;
         }
