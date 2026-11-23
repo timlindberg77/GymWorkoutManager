@@ -8,10 +8,10 @@ namespace GymWorkoutManager.Classes
 {
     public class MainMenu
     {
-        public WorkoutLogMenu workoutmenu;
-        public Datastore<Workout> WorkoutStore = new("workouts.json");
-        public SpectreFunktion spectreFunktion = new SpectreFunktion();
-        public SpectreLogos spectreLogos = new SpectreLogos();
+        public WorkoutLogMenu workoutmenu; // Vart alla pass sparas och kan hanteras
+        public Datastore<Workout> WorkoutStore = new("workouts.json"); // Lagrar passen i Jsonfil
+        public SpectreFunktion spectreFunktion = new SpectreFunktion(); // Kopplar spectre klassen
+        public SpectreLogos spectreLogos = new SpectreLogos(); // Spectre bilder
         private Workout? CurrentWorkout { get; set; } // passet som pågår just nu
         public Logger logger = new Logger(); //kopplar logger 
 
@@ -19,22 +19,25 @@ namespace GymWorkoutManager.Classes
         // 1. HUVUDMENY
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+        // Metod för att visa menyn
         public void ShowMainMenu()
         {
-            workoutmenu = new(WorkoutStore);
 
-            Console.WriteLine(SpectreLogos.LogoStart());
+            workoutmenu = new(WorkoutStore); // Skapar ny workout
+
+            Console.WriteLine(SpectreLogos.LogoStart()); // Spectre Logo
             Console.WriteLine("Press ENTER to start");
             Console.ReadLine();
             Console.Clear();
 
-            spectreFunktion.ShowLoadingBar();
+            spectreFunktion.ShowLoadingBar(); // Loading bar
 
-            WorkoutStore.LoadFromJson();
+            WorkoutStore.LoadFromJson(); // Hämtar information från Json fil
 
             Console.Clear();
 
-            bool menuKeepRunning = true;
+            bool menuKeepRunning = true; 
 
             while (menuKeepRunning)
             {
@@ -86,7 +89,7 @@ namespace GymWorkoutManager.Classes
 
             }
 
-            WorkoutStore.SaveToJson();
+            WorkoutStore.SaveToJson(); // Sparas till Json fil
 
             Console.WriteLine("You chose to end the program.");
         }
